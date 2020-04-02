@@ -100,6 +100,36 @@ module "aks" {
   resource_group            = azurerm_resource_group.rg.name
   storage_account_name      = var.storage_account_name
 
+additional_node_pools = {
+   ss = {
+     vm_size             = "Standard_DS2_v2"
+     enable_auto_scaling = false
+     node_count          = 1
+     min_count           = null
+     max_count           = null
+     max_pods            = 110
+     taints              = ["dedicated=searchstation:NoSchedule"]
+   }
+   rabbitmq = {
+     vm_size             = "Standard_DS2_v2"
+     enable_auto_scaling = false
+     node_count          = 1
+     min_count           = null
+     max_count           = null
+     max_pods            = 110
+     taints              = ["dedicated=rabbitmq:NoSchedule"]
+   }
+   elastic = {
+     vm_size             = "Standard_DS2_v2"
+     enable_auto_scaling = false
+     node_count          = 1
+     min_count           = null
+     max_count           = null
+     max_pods            = 110
+     taints              = ["dedicated=elasticsearch:NoSchedule"]
+   }
+ }
+
   tags = var.tags
 }
 
