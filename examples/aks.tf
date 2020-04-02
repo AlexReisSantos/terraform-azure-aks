@@ -6,6 +6,7 @@ provider "azurerm" {
 module "aks" {
   source = "../"
 
+  prefix                    = "terraform-aks"
   admin_username            = "terraform"
   location                  = azurerm_resource_group.rg.location
   netwok_resource_group     = azurerm_virtual_network.vnet.resource_group_name
@@ -15,12 +16,10 @@ module "aks" {
   node_count                = 1
   node_max_count            = null
   node_min_count            = null
-  prefix                    = "terraform"
   resource_group            = azurerm_resource_group.rg.name
   storage_account_name      = null
 
   tags = {
-    "MAINTAINER" = "TERRAFORM"
+    "MAINTAINER" = "Azure Devops CI"
   }
-
 }

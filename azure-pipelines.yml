@@ -31,11 +31,6 @@ stages:
 
         steps:
 
-        - task: ShellScript@2
-          displayName: 'Install test dependencies'
-          inputs:
-            scriptPath: test/scripts/install-test-dependencies.sh
-
         - task: Bash@3
           displayName: 'Set up the Go workspace'
           inputs:

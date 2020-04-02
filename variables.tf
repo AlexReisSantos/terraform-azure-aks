@@ -88,7 +88,7 @@ variable "rbac_enabled" {
 variable "vm_size" {
   description = "(Required) The size of the Virtual Machine, such as Standard_DS2_v2."
   type = string
-  default = "Standard_D8s_v3"
+  default = "Standard_DS2_v2"
 }
 
 variable "auto_scaling_default_node" {

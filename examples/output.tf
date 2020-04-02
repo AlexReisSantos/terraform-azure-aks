@@ -4,7 +4,6 @@ output "service_principal_id" {
 
 output "service_principal_secret" {
   value     = module.aks.service_principal_secret
-  sensitive = true
 }
 
 output "kube_config_raw" {
@@ -14,7 +13,7 @@ output "kube_config_raw" {
 
 output "config" {
   value = <<EOF
-Run the following commands to configure kubernetes clients:
+Run the following commands to configure kubectl local:
 $ terraform output kube_config_raw > ~/.kube/aksconfig
 $ export KUBECONFIG=~/.kube/aksconfig
 EOF
