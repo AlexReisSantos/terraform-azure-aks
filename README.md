@@ -141,8 +141,8 @@ module "aks" {
 
 | Name | Description |
 |------|-------------|
-| config | n/a |
-| kube\_config\_raw | n/a |
-| service\_principal\_id | teste |
-| service\_principal\_secret | n/a |
+| config | Commands to configure kubectl local |
+| kube\_config\_raw | Client configuration file for connecting to the cluster |
+| service\_principal\_id | Service Principal ID |
+| service\_principal\_secret | Service Principal Secrets |
 
