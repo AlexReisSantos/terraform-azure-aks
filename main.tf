@@ -1,3 +1,112 @@
+/**
+* [![Build Status](https://kantarware.visualstudio.com/KM-Engineering-AMS/_apis/build/status/edalferes.terraform-azure-aks?branchName=master)](https://kantarware.visualstudio.com/KM-Engineering-AMS/_build/latest?definitionId=3049&branchName=master)
+*
+* # terraform-azure-aks
+*
+* Terraform module to deploy an aks cluster at azure
+*
+* ## Description
+*
+* This module creates an aks cluster with a `service pricipal` dedicated to its resources and the subnet that was informed. There is also the option to create a `storage account` of the MC resource group, to be used as persistence.
+*
+* ## Example usage
+*
+* - Creating a cluster containing a single node
+*
+* ```terraform
+* provider "azurerm" {
+*   version = "~> 2.2.0"
+*   features {}
+* }
+*
+* resource "azurerm_resource_group" "rg" {
+*   name     = "terraform-aks"
+*   location = "westus"
+* }
+*
+* resource "azurerm_virtual_network" "vnet" {
+*   name                = "terraform-aks-vnet"
+*   address_space       = ["10.30.0.0/16"]
+*   location            = azurerm_resource_group.rg.location
+*   resource_group_name = azurerm_resource_group.rg.name
+* }
+*
+* resource "azurerm_subnet" "subnet" {
+*   name                 = "terraform-aks-subnet"
+*   resource_group_name  = azurerm_resource_group.rg.name
+*   virtual_network_name = azurerm_virtual_network.vnet.name
+*   address_prefix       = "10.30.1.0/24"
+* }
+*
+* module "aks" {
+*   source = "../"
+*
+*   prefix                    = var.prefix
+*   admin_username            = var.admin_username
+*   location                  = azurerm_resource_group.rg.location
+*   netwok_resource_group     = azurerm_virtual_network.vnet.resource_group_name
+*   network_subnet            = azurerm_subnet.subnet.name
+*   network_vnet              = azurerm_virtual_network.vnet.name
+*   auto_scaling_default_node = var.auto_scaling_default_node
+*   node_count                = var.node_max_count
+*   node_max_count            = var.node_max_count
+*   node_min_count            = var.node_min_count
+*   resource_group            = azurerm_resource_group.rg.name
+*   storage_account_name      = var.storage_account_name
+*
+*   tags = var.tags
+* }
+*
+* ```
+* - Creating a cluster containing several additional nodes
+*
+* ```terraform
+* provider "azurerm" {
+*   version = "~> 2.2.0"
+*   features {}
+* }
+*
+* resource "azurerm_resource_group" "rg" {
+*   name     = "terraform-aks"
+*   location = "westus"
+* }
+*
+* resource "azurerm_virtual_network" "vnet" {
+*   name                = "terraform-aks-vnet"
+*   address_space       = ["10.30.0.0/16"]
+*   location            = azurerm_resource_group.rg.location
+*   resource_group_name = azurerm_resource_group.rg.name
+* }
+*
+* resource "azurerm_subnet" "subnet" {
+*   name                 = "terraform-aks-subnet"
+*   resource_group_name  = azurerm_resource_group.rg.name
+*   virtual_network_name = azurerm_virtual_network.vnet.name
+*   address_prefix       = "10.30.1.0/24"
+* }
+*
+* module "aks" {
+*   source = "../"
+*
+*   prefix                    = var.prefix
+*   admin_username            = var.admin_username
+*   location                  = azurerm_resource_group.rg.location
+*   netwok_resource_group     = azurerm_virtual_network.vnet.resource_group_name
+*   network_subnet            = azurerm_subnet.subnet.name
+*   network_vnet              = azurerm_virtual_network.vnet.name
+*   auto_scaling_default_node = var.auto_scaling_default_node
+*   node_count                = var.node_max_count
+*   node_max_count            = var.node_max_count
+*   node_min_count            = var.node_min_count
+*   resource_group            = azurerm_resource_group.rg.name
+*   storage_account_name      = var.storage_account_name
+*
+*   tags = var.tags
+* }
+*
+* ```
+**/
+
 resource "azurerm_kubernetes_cluster" "k8s" {
 
   lifecycle {
