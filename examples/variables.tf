@@ -1,9 +1,9 @@
 variable "prefix" {
-  default = "terraform-aks"
+  default = "terraform-aks-ci"
 }
 
 variable "admin_username" {
-  default = "terraform"
+  default = "terraform-aks-ci"
 }
 
 variable "auto_scaling_default_node" {
@@ -23,7 +23,7 @@ variable "node_min_count" {
 }
 
 variable "storage_account_name" {
-  default = null
+  default = "terraformstci"
 }
 
 variable "tags" {
