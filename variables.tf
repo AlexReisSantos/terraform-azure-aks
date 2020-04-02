@@ -127,7 +127,7 @@ variable "docker_bridge_cidr" {
 }
 
 variable "storage_account_name" {
-  description = "(Optional) Data storage name (use lower case, no spaces and special characters ex: amsrtmdev)"
+  description = "(Optional) Data storage name (use lower case, no spaces and special characters ex: mystorageaccount).null empty does not create resource."
   type = string
 }
 
