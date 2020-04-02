@@ -1,14 +1,14 @@
 output "service_principal_id" {
-  value = module.aks.service_principal_id
+  value = azuread_service_principal.sp.id
 }
 
 output "service_principal_secret" {
-  value     = module.aks.service_principal_secret
+  value = random_string.unique.result
   sensitive = true
 }
 
 output "kube_config_raw" {
-  value     = module.aks.kube_config_raw
+  value     = azurerm_kubernetes_cluster.k8s.kube_config_raw
   sensitive = true
 }
 
