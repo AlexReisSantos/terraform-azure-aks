@@ -1,0 +1,89 @@
+# Starter pipeline azure
+trigger:
+  - test/* # Generates an alpha codename version (because it's very imbryonic)
+  - develop # Generates a beta codename (closer to release)
+  - master # Official release
+  - hotfix/* # Official release
+  
+variables:
+  - group: release-note-auth
+  - group: terraform-ci
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: azure-pipeline-templates
+
+stages:
+
+  - template: stages/bootstrap.yml@templates
+
+  - stage: Build
+    jobs:
+      - job: Build
+        pool:
+          vmImage: 'Ubuntu-18.04'
+        variables:
+          GOBIN:  '$(GOPATH)/bin' # Go binaries path
+          GOROOT: '/usr/local/go1.12' # Go installation path
+          GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
+          modulePath: '$(GOPATH)/src/$(Build.Repository.Name)' # Path to the module's code
+
+        steps:
+
+        - task: Bash@3
+          displayName: 'Set up the Go workspace'
+          inputs:
+            targetType: inline
+            script: |
+              mkdir -pv '$(GOBIN)'
+              mkdir -pv '$(GOPATH)/pkg'
+              mkdir -pv '$(modulePath)'
+              shopt -s extglob
+              mv !(gopath) '$(modulePath)'
+              echo '##vso[task.prependpath]$(GOBIN)'
+              echo '##vso[task.prependpath]$(GOROOT)/bin'
+
+        - task: Bash@3
+          displayName: 'Download glide and run `glide install`'
+          inputs:
+            workingDirectory: '$(modulePath)'
+            targetType: inline
+            script: |
+              cd test
+              if [ -f glide.yaml ]; then
+                  curl https://glide.sh/get | sh
+                  glide install
+              fi
+
+        - task: Bash@3
+          displayName: 'go test'
+          inputs:
+            workingDirectory: '$(modulePath)'
+            targetType: inline
+            script: |
+              cd test
+              go get -v -u github.com/jstemmer/go-junit-report
+              #go test -v 2>&1 | go-junit-report > report.xml
+              go test -timeout 0
+    
+        #- task: PublishTestResults@2
+        #  inputs:
+        #    testResultsFormat: 'JUnit'
+        #    testResultsFiles: $(System.DefaultWorkingDirectory)/**/report.xml
+
+        - task: GitHubRelease@0
+          displayName: PushRelease
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          inputs:
+            gitHubConnection: 'edalferes-access-token'
+            repositoryName: $(Build.Repository.Name)
+            action: 'create'
+            tagSource: manual
+            tag: $(Build.BuildNumber)
+            addChangeLog: true
+            assets: |
+              $(Build.ArtifactStagingDirectory)/README.md
+              $(Build.ArtifactStagingDirectory)/CHANGELOG.md
+                  
