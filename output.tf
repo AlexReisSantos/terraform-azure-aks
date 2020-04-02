@@ -1,4 +1,5 @@
 output "service_principal_id" {
+  description = "teste"
   value = azuread_service_principal.sp.id
 }
 

@@ -143,6 +143,6 @@ module "aks" {
 |------|-------------|
 | config | n/a |
 | kube\_config\_raw | n/a |
-| service\_principal\_id | n/a |
+| service\_principal\_id | teste |
 | service\_principal\_secret | n/a |
 
