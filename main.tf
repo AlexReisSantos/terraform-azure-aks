@@ -13,7 +13,7 @@
 *
 * - Creating a cluster containing a single node
 *
-* ```terraform
+* ```hcl
 * provider "azurerm" {
 *   version = "~> 2.2.0"
 *   features {}
@@ -60,7 +60,7 @@
 * ```
 * - Creating a cluster containing several additional nodes
 *
-* ```terraform
+* ```hcl
 * provider "azurerm" {
 *   version = "~> 2.2.0"
 *   features {}
