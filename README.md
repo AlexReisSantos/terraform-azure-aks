@@ -104,7 +104,6 @@ module "aks" {
 }
 
 ```
-\*\*/
 
 ## Inputs
 
