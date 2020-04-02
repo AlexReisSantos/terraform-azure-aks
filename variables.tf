@@ -131,19 +131,19 @@ variable "storage_account_name" {
   type = string
 }
 
-variable "account_tier" {
+variable "storage_account_tier" {
   description = "(Required) Defines the Tier to use for this storage account. Valid options are Standard and Premium. For FileStorage accounts only Premium is valid. Changing this forces a new resource to be created."
   type = string
   default = "Premium"
 }
 
-variable "account_replication_type" {
+variable "storage_account_replication_type" {
   description = "(Required) Defines the type of replication to use for this storage account. Valid options are LRS, GRS, RAGRS and ZRS."
   type = string
   default = "LRS"
 }
 
-variable "account_kind" {
+variable "storage_account_kind" {
   description = "(Optional) Defines the Kind of account. Valid options are BlobStorage, BlockBlobStorage, FileStorage, Storage and StorageV2. Changing this forces a new resource to be created. Defaults to StorageV2."
   type = string
   default = "FileStorage"

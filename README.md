@@ -109,9 +109,6 @@ module "aks" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| account\_kind | (Optional) Defines the Kind of account. Valid options are BlobStorage, BlockBlobStorage, FileStorage, Storage and StorageV2. Changing this forces a new resource to be created. Defaults to StorageV2. | `string` | `"FileStorage"` | no |
-| account\_replication\_type | (Required) Defines the type of replication to use for this storage account. Valid options are LRS, GRS, RAGRS and ZRS. | `string` | `"LRS"` | no |
-| account\_tier | (Required) Defines the Tier to use for this storage account. Valid options are Standard and Premium. For FileStorage accounts only Premium is valid. Changing this forces a new resource to be created. | `string` | `"Premium"` | no |
 | additional\_node\_pools | (Optional) List of additional node pools to the cluster | <pre>map(object({<br>    vm_size             = string<br>    enable_auto_scaling = bool<br>    node_count          = number<br>    min_count           = number<br>    max_count           = number<br>    max_pods            = number<br>    taints              = list(string)<br>  }))</pre> | `{}` | no |
 | admin\_username | (Required) The Admin Username for the Cluster. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | auto\_scaling\_default\_node | (Optional) Kubernetes Auto Scaler must be enabled for this main pool | `bool` | n/a | yes |
@@ -132,7 +129,10 @@ module "aks" {
 | rbac\_enabled | (Required) Is Role Based Access Control Enabled? Changing this forces a new resource to be created. | `bool` | `false` | no |
 | resource\_group | (Required) Specifies the Resource Group where the Managed Kubernetes Cluster should exist. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | service\_cidr | (Optional) The Network Range used by the Kubernetes service.Changing this forces a new resource to be created. | `string` | `"10.0.0.0/16"` | no |
+| storage\_account\_kind | (Optional) Defines the Kind of account. Valid options are BlobStorage, BlockBlobStorage, FileStorage, Storage and StorageV2. Changing this forces a new resource to be created. Defaults to StorageV2. | `string` | `"FileStorage"` | no |
 | storage\_account\_name | (Optional) Data storage name (use lower case, no spaces and special characters ex: amsrtmdev) | `string` | n/a | yes |
+| storage\_account\_replication\_type | (Required) Defines the type of replication to use for this storage account. Valid options are LRS, GRS, RAGRS and ZRS. | `string` | `"LRS"` | no |
+| storage\_account\_tier | (Required) Defines the Tier to use for this storage account. Valid options are Standard and Premium. For FileStorage accounts only Premium is valid. Changing this forces a new resource to be created. | `string` | `"Premium"` | no |
 | tags | (Optional) A mapping of tags to assign to the resource. | `map(string)` | n/a | yes |
 | vm\_size | (Required) The size of the Virtual Machine, such as Standard\_DS2\_v2. | `string` | `"Standard_DS2_v2"` | no |
 
