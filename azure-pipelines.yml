@@ -60,16 +60,9 @@ stages:
         - task: AzureCLI@1
           inputs:
             azureSubscription: 'KM-KMIBBRMEG-KMEngineering(0eb1c808-97f4-4994-a44e-44b784e11911)'
+            workingDirectory: '$(modulePath)'
             scriptLocation: 'inlineScript'
             inlineScript: |
-              az login --service-principal -u $(ARM_CLIENT_ID) -p $(ARM_CLIENT_SECRET) --tenant $(ARM_TENANT_ID)
-
-        - task: Bash@3
-          displayName: 'go test'
-          inputs:
-            workingDirectory: '$(modulePath)'
-            targetType: inline
-            script: |
               cd test
               go get -v -u github.com/jstemmer/go-junit-report
               #go test -v 2>&1 | go-junit-report > report.xml
