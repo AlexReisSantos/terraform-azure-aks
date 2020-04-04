@@ -1,7 +1,5 @@
 locals {
-
   prefix    = var.prefix
-  sp_name   = "${var.prefix}-sp"
   subnet_id = data.azurerm_subnet.subnet.id
   location  = var.location
   tags      = var.tags

@@ -41,8 +41,8 @@
 * module "aks" {
 *   source = "../"
 *
-*   service_prcipal_secret    = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
 *   service_principal_id      = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+*   service_principal_secret  = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
 *   prefix                    = "my-cluster"
 *   admin_username            = "my-user-admin"
 *   location                  = azurerm_resource_group.rg.location
@@ -90,8 +90,8 @@
 * module "aks" {
 *   source = "../"
 *
-*   service_prcipal_secret    = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
 *   service_principal_id      = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+*   service_principal_secret  = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
 *   prefix                    = "my-cluster"
 *   admin_username            = "my-user-admin"
 *   location                  = azurerm_resource_group.rg.location
@@ -177,7 +177,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
   service_principal {
     client_id     = var.service_principal_id
-    client_secret = var.service_prcipal_secret
+    client_secret = var.service_principal_secret
   }
 
   role_based_access_control {

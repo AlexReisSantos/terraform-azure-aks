@@ -40,8 +40,8 @@ resource "azurerm_subnet" "subnet" {
 module "aks" {
   source = "../"
 
-  service_prcipal_secret    = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
   service_principal_id      = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  service_principal_secret  = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
   prefix                    = "my-cluster"
   admin_username            = "my-user-admin"
   location                  = azurerm_resource_group.rg.location
@@ -89,8 +89,8 @@ resource "azurerm_subnet" "subnet" {
 module "aks" {
   source = "../"
 
-  service_prcipal_secret    = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
   service_principal_id      = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  service_principal_secret  = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
   prefix                    = "my-cluster"
   admin_username            = "my-user-admin"
   location                  = azurerm_resource_group.rg.location
@@ -163,8 +163,8 @@ module "aks" {
 | rbac\_enabled | (Required) Is Role Based Access Control Enabled? Changing this forces a new resource to be created. | `bool` | `false` | no |
 | resource\_group | (Required) Specifies the Resource Group where the Managed Kubernetes Cluster should exist. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | service\_cidr | (Optional) The Network Range used by the Kubernetes service.Changing this forces a new resource to be created. | `string` | `"10.0.0.0/16"` | no |
-| service\_prcipal\_secret | (Required) The Client Secret for the Service Principal. | `any` | n/a | yes |
 | service\_principal\_id | (Required) The Client ID for the Service Principal. | `any` | n/a | yes |
+| service\_principal\_secret | (Required) The Client Secret for the Service Principal. | `any` | n/a | yes |
 | storage\_account\_kind | (Optional) Defines the Kind of account. Valid options are BlobStorage, BlockBlobStorage, FileStorage, Storage and StorageV2. Changing this forces a new resource to be created. Defaults to StorageV2. | `string` | `"FileStorage"` | no |
 | storage\_account\_name | (Optional) Data storage name (use lower case, no spaces and special characters ex: mystorageaccount).null empty does not create resource. | `string` | n/a | yes |
 | storage\_account\_replication\_type | (Required) Defines the type of replication to use for this storage account. Valid options are LRS, GRS, RAGRS and ZRS. | `string` | `"LRS"` | no |

@@ -2,7 +2,7 @@ variable "service_principal_id" {
   description = " (Required) The Client ID for the Service Principal."
 }
 
-variable "service_prcipal_secret" {
+variable "service_principal_secret" {
   description = "(Required) The Client Secret for the Service Principal."
 }
 
