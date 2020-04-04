@@ -62,7 +62,12 @@ stages:
             azureSubscription: 'KM-KMIBBRMEG-KMEngineering(0eb1c808-97f4-4994-a44e-44b784e11911)'
             workingDirectory: '$(modulePath)'
             scriptLocation: 'inlineScript'
+            addSpnToEnvironment: true
             inlineScript: |
+              export ARM_CLIENT_ID=$(ARM_CLIENT_ID)
+              export ARM_CLIENT_SECRET=$(ARM_CLIENT_SECRET)
+              export ARM_SUBSCRIPTION_ID=$(az account show --query id | xargs)
+              export ARM_TENANT_ID=$(az account show --query tenantId | xargs)
               cd test
               go get -v -u github.com/jstemmer/go-junit-report
               #go test -v 2>&1 | go-junit-report > report.xml
