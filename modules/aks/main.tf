@@ -1,7 +1,7 @@
 /**
 * [![Build Status](https://kantarware.visualstudio.com/KM-Engineering-AMS/_apis/build/status/edalferes.terraform-azure-aks?branchName=master)](https://kantarware.visualstudio.com/KM-Engineering-AMS/_build/latest?definitionId=3049&branchName=master)
 *
-* # terraform-azure-aks-sp
+* # terraform-azure-aks
 *
 * Terraform module to deploy an aks cluster at azure
 *
