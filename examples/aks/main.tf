@@ -23,8 +23,10 @@ resource "azurerm_subnet" "subnet" {
 }
 
 module "aks" {
-  source = "../"
+  source = "../../modules/aks"
 
+  service_prcipal_secret    = var.service_principal_id
+  service_principal_id      = var.service_principal_secret
   prefix                    = var.prefix
   admin_username            = var.admin_username
   location                  = azurerm_resource_group.rg.location

@@ -40,6 +40,8 @@ resource "azurerm_subnet" "subnet" {
 module "aks" {
   source = "../"
 
+  service_prcipal_secret    = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  service_principal_id      = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
   prefix                    = "my-cluster"
   admin_username            = "my-user-admin"
   location                  = azurerm_resource_group.rg.location
@@ -87,6 +89,8 @@ resource "azurerm_subnet" "subnet" {
 module "aks" {
   source = "../"
 
+  service_prcipal_secret    = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  service_principal_id      = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
   prefix                    = "my-cluster"
   admin_username            = "my-user-admin"
   location                  = azurerm_resource_group.rg.location

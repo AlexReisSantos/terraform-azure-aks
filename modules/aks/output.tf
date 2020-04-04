@@ -1,11 +1,11 @@
 output "service_principal_id" {
   description = "Service Principal ID"
-  value = azuread_service_principal.sp.id
+  value = azurerm_kubernetes_cluster.k8s.service_principal[0].client_id
 }
 
 output "service_principal_secret" {
   description = "Service Principal Secrets"
-  value = random_string.unique.result
+  value = azurerm_kubernetes_cluster.k8s.service_principal[0].client_secret
 }
 
 output "kube_config_raw" {

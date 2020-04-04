@@ -41,6 +41,8 @@
 * module "aks" {
 *   source = "../"
 *
+*   service_prcipal_secret    = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+*   service_principal_id      = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
 *   prefix                    = "my-cluster"
 *   admin_username            = "my-user-admin"
 *   location                  = azurerm_resource_group.rg.location
@@ -88,6 +90,8 @@
 * module "aks" {
 *   source = "../"
 *
+*   service_prcipal_secret    = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
+*   service_principal_id      = "XXXXXXXXXXXXXXXXXXXXXXXXXXX"
 *   prefix                    = "my-cluster"
 *   admin_username            = "my-user-admin"
 *   location                  = azurerm_resource_group.rg.location
