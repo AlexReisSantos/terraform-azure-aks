@@ -7,7 +7,7 @@
 *
 * ## Description
 *
-* This module creates an aks cluster with a `service pricipal` dedicated to its resources and the subnet that was informed. There is also the option to create a `storage account` of the MC resource group, to be used as persistence.
+* This module creates an aks cluster and a `service pricipal` dedicated to its resources, a virtual network and subnet needs to be previously created. There is also the option to create a `storage account` of the MC resource group, to be used as persistence.
 *
 * ## Example usage
 *
