@@ -57,13 +57,12 @@ stages:
                   glide install
               fi
 
-        - task: AzureCLI@1
+        - task: Bash@3
+          displayName: 'go test'
           inputs:
-            azureSubscription: 'KM-KMIBBRMEG-KMEngineering(0eb1c808-97f4-4994-a44e-44b784e11911)'
             workingDirectory: '$(modulePath)'
-            scriptLocation: 'inlineScript'
-            addSpnToEnvironment: true
-            inlineScript: |
+            targetType: inline
+            script: |
               cd test
               go get -v -u github.com/jstemmer/go-junit-report
               go test -v -timeout 0
