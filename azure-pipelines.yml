@@ -78,7 +78,7 @@ stages:
           inputs:
             gitHubConnection: 'edalferes-access-token'
             repositoryName: $(Build.Repository.Name)
-            title: Release - $(Build.BuildNumber)
+            title: $(Build.BuildNumber)
             action: 'create'
             tagSource: manual
             tag: $(Build.BuildNumber)
