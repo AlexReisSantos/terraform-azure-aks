@@ -1,13 +1,13 @@
 /**
 * [![Build Status](https://kantarware.visualstudio.com/KM-Engineering-AMS/_apis/build/status/edalferes.terraform-azure-aks?branchName=master)](https://kantarware.visualstudio.com/KM-Engineering-AMS/_build/latest?definitionId=3049&branchName=master)
 *
-* # terraform-azure-aks
+* # terraform-azure-aks-sp
 *
 * Terraform module to deploy an aks cluster at azure
 *
 * ## Description
 *
-* This module creates an aks cluster with a `service pricipal` dedicated to its resources and the subnet that was informed. There is also the option to create a `storage account` of the MC resource group, to be used as persistence.
+* This module creates an aks with advanced network, and the network must be previously created and configured. There is also the option to create a `storage account` of the MC resource group, to be used as persistence.
 *
 * ## Example usage
 *
@@ -145,10 +145,6 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     ]
   }
 
-  depends_on = [
-    null_resource.delay_after_sp_created
-  ]
-
   name                = local.prefix
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
@@ -176,8 +172,8 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 
   service_principal {
-    client_id     = azuread_service_principal.sp.application_id
-    client_secret = azuread_service_principal_password.sp.value
+    client_id     = var.service_principal_id
+    client_secret = var.service_prcipal_secret
   }
 
   role_based_access_control {
