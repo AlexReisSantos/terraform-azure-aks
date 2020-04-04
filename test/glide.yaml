@@ -1,0 +1,7 @@
+package: terraform-azure-aks/test
+import: []
+testImport:
+- package: github.com/gruntwork-io/terratest
+  version: ~0.26.1
+  subpackages:
+  - modules/terraform
