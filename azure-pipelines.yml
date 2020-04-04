@@ -7,7 +7,7 @@ trigger:
   
 variables:
   - group: release-note-auth
-  - group: service-principal-terraform
+  - group: terraform-ci
 
 resources:
   repositories:
