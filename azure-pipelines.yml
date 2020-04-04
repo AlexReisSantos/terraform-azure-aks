@@ -59,19 +59,21 @@ stages:
 
         - task: Bash@3
           displayName: 'go test'
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             workingDirectory: '$(modulePath)'
             targetType: inline
             script: |
               cd test
               go get -v -u github.com/jstemmer/go-junit-report
-              go test -v -timeout 0
-              #go test -v -timeout 0 2>&1 | go-junit-report > report.xml
+              go test -v -timeout 0 2>&1 | go-junit-report > report.xml
     
-        #- task: PublishTestResults@2
-        #  inputs:
-        #    testResultsFormat: 'JUnit'
-        #    testResultsFiles: $(modulePath)/**/report.xml
+        - task: PublishTestResults@2
+          displayName: 'Publish result test'
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          inputs:
+            testResultsFormat: 'JUnit'
+            testResultsFiles: $(modulePath)/**/report.xml
 
         - task: GitHubRelease@0
           displayName: PushRelease
