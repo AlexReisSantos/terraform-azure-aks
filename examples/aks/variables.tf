@@ -1,3 +1,7 @@
+variable "service_principal_id" {}
+
+variable "service_principal_secret" {}
+
 variable "prefix" {
   default = "terraform-aks-ci"
 }

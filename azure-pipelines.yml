@@ -7,6 +7,7 @@ trigger:
   
 variables:
   - group: release-note-auth
+  - group: terraform-ci
 
 resources:
   repositories:
@@ -44,33 +45,35 @@ stages:
               echo '##vso[task.prependpath]$(GOBIN)'
               echo '##vso[task.prependpath]$(GOROOT)/bin'
 
-        #- task: Bash@3
-        #  displayName: 'Download glide and run `glide install`'
-        #  inputs:
-        #    workingDirectory: '$(modulePath)'
-        #    targetType: inline
-        #    script: |
-        #      cd test
-        #      if [ -f glide.yaml ]; then
-        #          curl https://glide.sh/get | sh
-        #          glide install
-        #      fi
+        - task: Bash@3
+          displayName: 'Download glide and run `glide install`'
+          inputs:
+            workingDirectory: '$(modulePath)'
+            targetType: inline
+            script: |
+              cd test
+              if [ -f glide.yaml ]; then
+                  curl https://glide.sh/get | sh
+                  glide install
+              fi
 
-        #- task: AzureCLI@1
-        #  inputs:
-        #    azureSubscription: 'KM-KMIBBRMEG-KMEngineering(0eb1c808-97f4-4994-a44e-44b784e11911)'
-        #    workingDirectory: '$(modulePath)'
-        #    scriptLocation: 'inlineScript'
-        #    addSpnToEnvironment: true
-        #    inlineScript: |
-        #      cd test
-        #      go get -v -u github.com/jstemmer/go-junit-report
-        #      #go test -v -timeout 0 2>&1 | go-junit-report > report.xml
+        - task: Bash@3
+          displayName: 'go test'
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          inputs:
+            workingDirectory: '$(modulePath)'
+            targetType: inline
+            script: |
+              cd test
+              go get -v -u github.com/jstemmer/go-junit-report
+              go test -v -timeout 0 2>&1 | go-junit-report > report.xml
     
-        #- task: PublishTestResults@2
-        #  inputs:
-        #    testResultsFormat: 'JUnit'
-        #    testResultsFiles: $(System.DefaultWorkingDirectory)/**/report.xml
+        - task: PublishTestResults@2
+          displayName: 'Publish result test'
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          inputs:
+            testResultsFormat: 'JUnit'
+            testResultsFiles: $(modulePath)/**/report.xml
 
         - task: GitHubRelease@0
           displayName: PushRelease
