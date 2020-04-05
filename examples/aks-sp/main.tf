@@ -23,7 +23,7 @@ resource "azurerm_subnet" "subnet" {
 }
 
 module "aks" {
-  source = "../../modules/aks-sp"
+  source = "../"
 
   prefix                    = var.prefix
   admin_username            = var.admin_username
