@@ -73,7 +73,7 @@ stages:
           condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             testResultsFormat: 'JUnit'
-            testResultsFiles: $(modulePath)/**/report.xml
+            testResultsFiles: $(modulePath)/test/report.xml
 
         - task: GitHubRelease@0
           displayName: PushRelease
