@@ -1,3 +1,8 @@
+output "cluster_name" {
+  description = "Cluster name to be used in the context of kubectl"
+  value = azurerm_kubernetes_cluster.k8s.name
+}
+
 output "service_principal_id" {
   description = "Service Principal ID"
   value = azuread_service_principal.sp.id

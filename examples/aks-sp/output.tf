@@ -1,9 +1,14 @@
+
 output "service_principal_id" {
   value = module.aks.service_principal_id
 }
 
 output "service_principal_secret" {
   value     = module.aks.service_principal_secret
+}
+
+output "cluster_name" {
+  value = azurerm_kubernetes_cluster.k8s.name
 }
 
 output "kube_config_raw" {
