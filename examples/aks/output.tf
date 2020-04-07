@@ -1,3 +1,7 @@
+output "cluster_name" {
+  value = module.aks.cluster_name
+}
+
 output "service_principal_id" {
   value = module.aks.service_principal_id
 }
