@@ -21,6 +21,6 @@ resource "tls_private_key" "pair" {
 
 resource "null_resource" "create_kube_config" {
   provisioner "local-exec" {
-    command = "echo '${azurerm_kubernetes_cluster.k8s.kube_config}' > config"
+    command = "terraform output kube_config_raw > ${azurerm_kubernetes_cluster.k8s.name}_config"
   }
 }
