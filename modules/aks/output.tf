@@ -19,6 +19,11 @@ output "kube_config_raw" {
   sensitive = true
 }
 
+output "kube_config_file" {
+  description = "Kubeconfig file"
+  value = local_file.kubeconfig_file.filename
+}
+
 output "config" {
   description = "Commands to configure kubectl local"
   value = <<EOF

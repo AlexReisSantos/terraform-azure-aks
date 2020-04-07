@@ -37,6 +37,7 @@
 |------|-------------|
 | cluster\_name | Cluster name to be used in the context of kubectl |
 | config | Commands to configure kubectl local |
+| kube\_config\_file | Kubeconfig file |
 | kube\_config\_raw | Client configuration file for connecting to the cluster |
 | service\_principal\_id | Service Principal ID |
 | service\_principal\_secret | Service Principal Secrets |

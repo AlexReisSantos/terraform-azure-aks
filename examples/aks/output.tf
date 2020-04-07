@@ -15,6 +15,10 @@ output "kube_config_raw" {
   sensitive = true
 }
 
+output "kube_config_file" {
+  value = module.aks.kube_config_file
+}
+
 output "config" {
   value = <<EOF
 Run the following commands to configure kubectl local:

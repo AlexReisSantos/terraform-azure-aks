@@ -21,8 +21,7 @@ resource "tls_private_key" "pair" {
   algorithm = "RSA"
 }
 
-resource "null_resource" "create_kube_config" {
-  provisioner "local-exec" {
-    command = "terraform output kube_config_raw > ${azurerm_kubernetes_cluster.k8s.name}_config"
-  }
+resource "local_file" "kubeconfig_file" {
+    content     = azurerm_kubernetes_cluster.k8s.kube_config_raw
+    filename    = "${azurerm_kubernetes_cluster.k8s.name}_config"
 }
