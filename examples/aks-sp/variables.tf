@@ -1,4 +1,3 @@
-
 variable "prefix" {
   default = "terraform-aks-ci"
 }

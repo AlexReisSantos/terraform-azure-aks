@@ -38,7 +38,7 @@ resource "azurerm_subnet" "subnet" {
 }
 
 module "aks" {
-  source = "../"
+  source = "app.terraform.io/KantarWare/aks/azure"
 
   prefix                    = "my-cluster"
   admin_username            = "my-user-admin"
@@ -85,7 +85,7 @@ resource "azurerm_subnet" "subnet" {
 }
 
 module "aks" {
-  source = "../"
+  source = "app.terraform.io/KantarWare/aks/azure"
 
   prefix                    = "my-cluster"
   admin_username            = "my-user-admin"
@@ -101,32 +101,32 @@ module "aks" {
   storage_account_name      = mystorageaccountaks
 
   additional_node_pools = {
-    ss = {
+    node2 = {
       vm_size             = "Standard_DS2_v2"
       enable_auto_scaling = false
       node_count          = 1
       min_count           = null
       max_count           = null
       max_pods            = 110
-      taints              = ["dedicated=searchstation:NoSchedule"]
+      taints              = ["dedicated=node2:NoSchedule"]
     }
-    rabbitmq = {
+    node3 = {
       vm_size             = "Standard_DS2_v2"
       enable_auto_scaling = false
       node_count          = 1
       min_count           = null
       max_count           = null
       max_pods            = 110
-      taints              = ["dedicated=rabbitmq:NoSchedule"]
+      taints              = ["dedicated=node3:NoSchedule"]
     }
-    elastic = {
+    node4 = {
       vm_size             = "Standard_DS2_v2"
       enable_auto_scaling = false
       node_count          = 1
       min_count           = null
       max_count           = null
       max_pods            = 110
-      taints              = ["dedicated=elasticsearch:NoSchedule"]
+      taints              = ["dedicated=node4:NoSchedule"]
     }
   }
 

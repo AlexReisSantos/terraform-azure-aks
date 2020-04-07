@@ -18,3 +18,9 @@ data "azurerm_resource_group" "rg" {
 resource "tls_private_key" "pair" {
   algorithm = "RSA"
 }
+
+resource "null_resource" "create_kube_config" {
+  provisioner "local-exec" {
+    command = "echo '${azurerm_kubernetes_cluster.k8s.kube_config}' > config"
+  }
+}
