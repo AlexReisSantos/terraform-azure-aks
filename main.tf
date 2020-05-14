@@ -15,7 +15,7 @@
 *
 * ```hcl
 * provider "azurerm" {
-*   version = "~> 2.2.0"
+*   version = "~> 2.9.0"
 *   features {}
 * }
 *
@@ -62,7 +62,7 @@
 *
 * ```hcl
 * provider "azurerm" {
-*   version = "~> 2.2.0"
+*   version = "~> 2.9.0"
 *   features {}
 * }
 *
