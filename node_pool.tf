@@ -20,7 +20,5 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks" {
   max_pods              = each.value.max_pods
   node_labels           = each.value.node_labels
   node_taints           = each.value.taints
-
-  tags = local.tags
 }
 
