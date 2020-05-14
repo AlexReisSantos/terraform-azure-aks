@@ -103,30 +103,27 @@ module "aks" {
   additional_node_pools = {
     node2 = {
       vm_size             = "Standard_DS2_v2"
+      os_disk_size_gb     = 100
       enable_auto_scaling = false
       node_count          = 1
       min_count           = null
       max_count           = null
       max_pods            = 110
+      node_labels         = null
       taints              = ["dedicated=node2:NoSchedule"]
+      tags                = null
     }
     node3 = {
       vm_size             = "Standard_DS2_v2"
+      os_disk_size_gb     = 100
       enable_auto_scaling = false
       node_count          = 1
       min_count           = null
       max_count           = null
       max_pods            = 110
+      node_labels         = null
       taints              = ["dedicated=node3:NoSchedule"]
-    }
-    node4 = {
-      vm_size             = "Standard_DS2_v2"
-      enable_auto_scaling = false
-      node_count          = 1
-      min_count           = null
-      max_count           = null
-      max_pods            = 110
-      taints              = ["dedicated=node4:NoSchedule"]
+      tags                = null
     }
   }
 
@@ -139,7 +136,7 @@ module "aks" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| additional\_node\_pools | (Optional) List of additional node pools to the cluster | <pre>map(object({<br>    vm_size             = string<br>    enable_auto_scaling = bool<br>    node_count          = number<br>    min_count           = number<br>    max_count           = number<br>    max_pods            = number<br>    taints              = list(string)<br>  }))</pre> | `{}` | no |
+| additional\_node\_pools | (Optional) List of additional node pools to the cluster | <pre>map(object({<br>    vm_size             = string<br>    os_disk_size_gb     = number<br>    enable_auto_scaling = bool<br>    node_count          = number<br>    min_count           = number<br>    max_count           = number<br>    max_pods            = number<br>    node_labels         = map(string)<br>    taints              = list(string)<br>  }))</pre> | `{}` | no |
 | admin\_username | (Required) The Admin Username for the Cluster. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | auto\_scaling\_default\_node | (Optional) Kubernetes Auto Scaler must be enabled for this main pool | `bool` | n/a | yes |
 | dns\_service\_ip | (Optional) IP address within the Kubernetes service address range that will be used by cluster service discovery (kube-dns). | `string` | `"10.0.0.10"` | no |

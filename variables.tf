@@ -2,11 +2,13 @@ variable "additional_node_pools" {
   description = "(Optional) List of additional node pools to the cluster"
   type = map(object({
     vm_size             = string
+    os_disk_size_gb     = number
     enable_auto_scaling = bool
     node_count          = number
     min_count           = number
     max_count           = number
     max_pods            = number
+    node_labels         = map(string)
     taints              = list(string)
   }))
   default = {}
