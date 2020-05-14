@@ -104,30 +104,27 @@
 *   additional_node_pools = {
 *     node2 = {
 *       vm_size             = "Standard_DS2_v2"
+*       os_disk_size_gb     = 100
 *       enable_auto_scaling = false
 *       node_count          = 1
 *       min_count           = null
 *       max_count           = null
 *       max_pods            = 110
+*       node_labels         = null
 *       taints              = ["dedicated=node2:NoSchedule"]
+*       tags                = null
 *     }
 *     node3 = {
 *       vm_size             = "Standard_DS2_v2"
+*       os_disk_size_gb     = 100
 *       enable_auto_scaling = false
 *       node_count          = 1
 *       min_count           = null
 *       max_count           = null
 *       max_pods            = 110
+*       node_labels         = null
 *       taints              = ["dedicated=node3:NoSchedule"]
-*     }
-*     node4 = {
-*       vm_size             = "Standard_DS2_v2"
-*       enable_auto_scaling = false
-*       node_count          = 1
-*       min_count           = null
-*       max_count           = null
-*       max_pods            = 110
-*       taints              = ["dedicated=node4:NoSchedule"]
+*       tags                = null
 *     }
 *   }
 *
