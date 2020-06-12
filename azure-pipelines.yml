@@ -23,57 +23,45 @@ stages:
     jobs:
       - job: Build
         pool:
-          vmImage: 'Ubuntu-18.04'
-        variables:
-          GOBIN:  '$(GOPATH)/bin' # Go binaries path
-          GOROOT: '/usr/local/go1.12' # Go installation path
-          GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
-          modulePath: '$(GOPATH)/src/$(Build.Repository.Name)' # Path to the module's code
+          vmImage: ubuntu-latest
 
         steps:
 
-        - task: Bash@3
-          displayName: 'Set up the Go workspace'
+        - task: GoTool@0
+          displayName: 'go install'
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
-            targetType: inline
-            script: |
-              mkdir -pv '$(GOBIN)'
-              mkdir -pv '$(GOPATH)/pkg'
-              mkdir -pv '$(modulePath)'
-              shopt -s extglob
-              mv !(gopath) '$(modulePath)'
-              echo '##vso[task.prependpath]$(GOBIN)'
-              echo '##vso[task.prependpath]$(GOROOT)/bin'
+            version: '1.13.5'
 
         - task: Bash@3
-          displayName: 'Download glide and run `glide install`'
+          displayName: 'go bootstrap'
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
-            workingDirectory: '$(modulePath)'
+            workingDirectory: 'test'
             targetType: inline
             script: |
-              cd test
-              if [ -f glide.yaml ]; then
-                  curl https://glide.sh/get | sh
-                  glide install
+              go version
+              go get -v -t -d ./... 
+              if [ -f Gopkg.toml ]; then
+                  curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+                  dep ensure
               fi
 
         - task: Bash@3
           displayName: 'go test'
           condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
-            workingDirectory: '$(modulePath)'
+            workingDirectory: 'test'
             targetType: inline
             script: |
-              cd test
-              go get -v -u github.com/jstemmer/go-junit-report
-              go test -v -timeout 0 2>&1 | go-junit-report > report.xml
+              ./gotestsum --format standard-verbose --junitfile report.xml -- -timeout 0
     
         - task: PublishTestResults@2
           displayName: 'Publish result test'
           condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             testResultsFormat: 'JUnit'
-            testResultsFiles: $(modulePath)/test/report.xml
+            testResultsFiles: '**/report.xml'
 
         - task: GitHubRelease@0
           displayName: PushRelease

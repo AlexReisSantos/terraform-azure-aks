@@ -170,6 +170,8 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     min_count           = var.node_min_count
     max_count           = var.node_max_count
     max_pods            = var.max_pods
+
+
   }
 
   service_principal {
