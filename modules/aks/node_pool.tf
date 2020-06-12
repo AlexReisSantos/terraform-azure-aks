@@ -9,6 +9,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks" {
   for_each = var.additional_node_pools
 
   kubernetes_cluster_id = azurerm_kubernetes_cluster.k8s.id
+  orchestrator_version  = var.k8s_version
   name                  = substr(each.key, 0, 12)
   vm_size               = each.value.vm_size
   enable_auto_scaling   = each.value.enable_auto_scaling
