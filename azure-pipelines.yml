@@ -31,7 +31,7 @@ stages:
 
         - task: Bash@3
           displayName: "Install terraform 0.12.29"
-          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             targetType: inline
             script: |
@@ -44,13 +44,13 @@ stages:
 
         - task: GoTool@0
           displayName: 'Go install'
-          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             version: '1.14.4'
 
         - task: Go@0
           displayName: Go get
-          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             workingDirectory: 'test'
             command: 'get'
@@ -58,7 +58,7 @@ stages:
 
         - task: Bash@3
           displayName: 'Go test'
-          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             workingDirectory: 'test'
             targetType: inline
@@ -67,7 +67,7 @@ stages:
     
         - task: PublishTestResults@2
           displayName: 'Publish result test'
-          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             testResultsFormat: 'JUnit'
             testResultsFiles: '**/report.xml'
