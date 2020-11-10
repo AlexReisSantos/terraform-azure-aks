@@ -1,11 +1,5 @@
 resource "azurerm_kubernetes_cluster" "k8s" {
 
-  lifecycle {
-    ignore_changes = [
-      default_node_pool[0].node_count,
-    ]
-  }
-
   name                = local.prefix
   resource_group_name = data.azurerm_resource_group.rg.name
   location            = data.azurerm_resource_group.rg.location
