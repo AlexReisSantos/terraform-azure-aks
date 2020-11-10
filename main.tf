@@ -136,12 +136,6 @@
 
 resource "azurerm_kubernetes_cluster" "k8s" {
 
-  lifecycle {
-    ignore_changes = [
-      default_node_pool[0].node_count,
-    ]
-  }
-
   depends_on = [
     null_resource.delay_after_sp_created
   ]

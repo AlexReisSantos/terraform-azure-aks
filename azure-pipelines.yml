@@ -17,7 +17,9 @@ resources:
 
 stages:
 
-  - template: stages/bootstrap.yml@templates
+  - template: stages/bootstrap2.yml@templates
+    parameters:
+      versionBase: '1.4.0'
 
   - stage: Build
     jobs:
@@ -27,29 +29,36 @@ stages:
 
         steps:
 
-        - task: GoTool@0
-          displayName: 'go install'
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-          inputs:
-            version: '1.13.5'
-
         - task: Bash@3
-          displayName: 'go bootstrap'
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          displayName: "Install terraform 0.12.29"
+          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
-            workingDirectory: 'test'
             targetType: inline
             script: |
-              go version
-              go get -v -t -d ./... 
-              if [ -f Gopkg.toml ]; then
-                  curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-                  dep ensure
-              fi
+              wget https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip
+              unzip terraform_0.12.29_linux_amd64.zip 
+              sudo cp terraform /usr/local/bin
+              terraform version
+              mkdir -pv $HOME/.kube || true
+              echo $HOME
+
+        - task: GoTool@0
+          displayName: 'Go install'
+          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          inputs:
+            version: '1.14.4'
+
+        - task: Go@0
+          displayName: Go get
+          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          inputs:
+            workingDirectory: 'test'
+            command: 'get'
+            arguments: '-d -v'
 
         - task: Bash@3
-          displayName: 'go test'
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          displayName: 'Go test'
+          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             workingDirectory: 'test'
             targetType: inline
@@ -58,7 +67,7 @@ stages:
     
         - task: PublishTestResults@2
           displayName: 'Publish result test'
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+          #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             testResultsFormat: 'JUnit'
             testResultsFiles: '**/report.xml'
