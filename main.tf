@@ -160,6 +160,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     vm_size             = var.vm_size
     vnet_subnet_id      = local.subnet_id
     enable_auto_scaling = var.auto_scaling_default_node
+    availability_zones  = var.availability_zones
     node_count          = var.node_count
     min_count           = var.node_min_count
     max_count           = var.node_max_count

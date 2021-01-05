@@ -8,6 +8,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks" {
   vm_size               = each.value.vm_size
   os_disk_size_gb       = each.value.os_disk_size_gb
   enable_auto_scaling   = each.value.enable_auto_scaling
+  availability_zones    = each.value.availability_zones
   node_count            = each.value.node_count
   min_count             = each.value.min_count
   max_count             = each.value.max_count
@@ -15,4 +16,3 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks" {
   node_labels           = each.value.node_labels
   node_taints           = each.value.taints
 }
-
