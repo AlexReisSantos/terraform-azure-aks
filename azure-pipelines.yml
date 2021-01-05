@@ -29,48 +29,48 @@ stages:
 
         steps:
 
-        - task: Bash@3
-          displayName: "Install terraform 0.12.29"
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-          inputs:
-            targetType: inline
-            script: |
-              wget https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip
-              unzip terraform_0.12.29_linux_amd64.zip 
-              sudo cp terraform /usr/local/bin
-              terraform version
-              mkdir -pv $HOME/.kube || true
-              echo $HOME
+        #- task: Bash@3
+        #  displayName: "Install terraform 0.12.29"
+        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        #  inputs:
+        #    targetType: inline
+        #    script: |
+        #      wget https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip
+        #      unzip terraform_0.12.29_linux_amd64.zip 
+        #      sudo cp terraform /usr/local/bin
+        #      terraform version
+        #      mkdir -pv $HOME/.kube || true
+        #      echo $HOME
 
-        - task: GoTool@0
-          displayName: 'Go install'
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-          inputs:
-            version: '1.14.4'
+        #- task: GoTool@0
+        #  displayName: 'Go install'
+        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        #  inputs:
+        #    version: '1.14.4'
 
-        - task: Go@0
-          displayName: Go get
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-          inputs:
-            workingDirectory: 'test'
-            command: 'get'
-            arguments: '-d -v'
+        #- task: Go@0
+        #  displayName: Go get
+        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        #  inputs:
+        #    workingDirectory: 'test'
+        #    command: 'get'
+        #    arguments: '-d -v'
 
-        - task: Bash@3
-          displayName: 'Go test'
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-          inputs:
-            workingDirectory: 'test'
-            targetType: inline
-            script: |
-              ./gotestsum --format standard-verbose --junitfile report.xml -- -timeout 0
+        #- task: Bash@3
+        #  displayName: 'Go test'
+        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        #  inputs:
+        #    workingDirectory: 'test'
+        #    targetType: inline
+        #    script: |
+        #      ./gotestsum --format standard-verbose --junitfile report.xml -- -timeout 0
     
-        - task: PublishTestResults@2
-          displayName: 'Publish result test'
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-          inputs:
-            testResultsFormat: 'JUnit'
-            testResultsFiles: '**/report.xml'
+        #- task: PublishTestResults@2
+        #  displayName: 'Publish result test'
+        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        #  inputs:
+        #    testResultsFormat: 'JUnit'
+        #    testResultsFiles: '**/report.xml'
 
         - task: GitHubRelease@0
           displayName: PushRelease
