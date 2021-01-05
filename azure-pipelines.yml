@@ -19,7 +19,7 @@ stages:
 
   - template: stages/bootstrap2.yml@templates
     parameters:
-      versionBase: '1.4.0'
+      versionBase: '1.5.0'
 
   - stage: Build
     jobs:
