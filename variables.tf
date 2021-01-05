@@ -4,6 +4,7 @@ variable "additional_node_pools" {
     vm_size             = string
     os_disk_size_gb     = number
     enable_auto_scaling = bool
+    availability_zones = list(string)
     node_count          = number
     min_count           = number
     max_count           = number
@@ -96,6 +97,12 @@ variable "vm_size" {
 variable "auto_scaling_default_node" {
   description = "(Optional) Kubernetes Auto Scaler must be enabled for this main pool"
   type = bool
+}
+
+variable "availability_zones" {
+  description = "(Optional) A list of Availability Zones across which the Node Pool should be spread. Changing this forces a new resource to be created."
+  type = list(string)
+  default = []
 }
 
 variable "max_pods" {

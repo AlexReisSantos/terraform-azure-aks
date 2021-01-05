@@ -48,6 +48,7 @@
 *   network_subnet            = azurerm_subnet.subnet.name
 *   network_vnet              = azurerm_virtual_network.vnet.name
 *   auto_scaling_default_node = false
+*   availability_zones        = ["1","2","3"]
 *   node_count                = 1
 *   node_max_count            = null
 *   node_min_count            = null
@@ -95,6 +96,7 @@
 *   network_subnet            = azurerm_subnet.subnet.name
 *   network_vnet              = azurerm_virtual_network.vnet.name
 *   auto_scaling_default_node = false
+*   availability_zones        = ["1","2","3"]
 *   node_count                = 1
 *   node_max_count            = null
 *   node_min_count            = null
@@ -106,6 +108,7 @@
 *       vm_size             = "Standard_DS2_v2"
 *       os_disk_size_gb     = 100
 *       enable_auto_scaling = false
+*       availability_zones        = ["1","2","3"]
 *       node_count          = 1
 *       min_count           = null
 *       max_count           = null
@@ -118,6 +121,7 @@
 *       vm_size             = "Standard_DS2_v2"
 *       os_disk_size_gb     = 100
 *       enable_auto_scaling = false
+*       availability_zones        = ["1","2","3"]
 *       node_count          = 1
 *       min_count           = null
 *       max_count           = null
@@ -160,6 +164,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
     vm_size             = var.vm_size
     vnet_subnet_id      = local.subnet_id
     enable_auto_scaling = var.auto_scaling_default_node
+    availability_zones  = var.availability_zones
     node_count          = var.node_count
     min_count           = var.node_min_count
     max_count           = var.node_max_count
