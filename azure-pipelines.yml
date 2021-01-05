@@ -25,7 +25,7 @@ stages:
     jobs:
       - job: Build
         pool:
-          vmImage: ubuntu-latest
+          vmImage: ubuntu-20.04
 
         steps:
 
