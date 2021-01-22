@@ -1,5 +1,5 @@
 resource "azuread_application" "sp" {
-  name                       = local.sp_name
+  display_name                       = local.sp_name
   identifier_uris            = ["http://${local.sp_name}"]
   available_to_other_tenants = false
   oauth2_allow_implicit_flow = false
