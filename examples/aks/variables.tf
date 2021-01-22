@@ -32,6 +32,6 @@ variable "storage_account_name" {
 
 variable "tags" {
   default = {
-     "MAINTAINER" = "Azure Devops CI"
+    "MAINTAINER" = "Azure Devops CI"
   }
 }

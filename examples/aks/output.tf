@@ -7,7 +7,7 @@ output "service_principal_id" {
 }
 
 output "service_principal_secret" {
-  value     = module.aks.service_principal_secret
+  value = module.aks.service_principal_secret
 }
 
 output "kube_config_raw" {

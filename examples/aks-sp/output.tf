@@ -4,7 +4,7 @@ output "service_principal_id" {
 }
 
 output "service_principal_secret" {
-  value     = module.aks.service_principal_secret
+  value = module.aks.service_principal_secret
 }
 
 output "cluster_name" {
