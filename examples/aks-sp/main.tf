@@ -32,7 +32,7 @@ module "aks" {
   network_subnet            = azurerm_subnet.subnet.name
   network_vnet              = azurerm_virtual_network.vnet.name
   auto_scaling_default_node = var.auto_scaling_default_node
-  availability_zones        = ["1","2","3"]
+  availability_zones        = ["1", "2", "3"]
   node_count                = var.node_count
   node_max_count            = var.node_max_count
   node_min_count            = var.node_min_count

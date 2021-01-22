@@ -22,6 +22,6 @@ resource "tls_private_key" "pair" {
 }
 
 resource "local_file" "kubeconfig_file" {
-    content     = azurerm_kubernetes_cluster.k8s.kube_config_raw
-    filename    = "${azurerm_kubernetes_cluster.k8s.name}_config"
+  content  = azurerm_kubernetes_cluster.k8s.kube_config_raw
+  filename = "${azurerm_kubernetes_cluster.k8s.name}_config"
 }
