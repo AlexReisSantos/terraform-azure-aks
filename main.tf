@@ -191,7 +191,5 @@ resource "azurerm_kubernetes_cluster" "k8s" {
   }
 
   tags = var.tags
-
-  sku_tier = "Free"
 }
 
