@@ -76,7 +76,7 @@ stages:
           displayName: PushRelease
           condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
-            gitHubConnection: 'guifabmello-access-token'
+            gitHubConnection: 'edalferes-access-token'
             repositoryName: $(Build.Repository.Name)
             title: $(Build.BuildNumber)
             action: 'create'
