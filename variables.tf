@@ -157,3 +157,9 @@ variable "storage_account_kind" {
   type        = string
   default     = "FileStorage"
 }
+
+variable "sku_tier" {
+  description = "(Optional) Defines the SLA plan for the availability of system main"
+  type        = string
+  default     = "Free"
+}
