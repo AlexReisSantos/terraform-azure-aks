@@ -159,7 +159,7 @@ variable "storage_account_kind" {
 }
 
 variable "sku_tier" {
-  description = "(Optional) Defines the SLA plan for the availability of system"
+  description = "(Optional) Defines the SLA plan for the availability of system. Valid options are Free or Paid, paid option enables the Uptime SLA feature (see https://docs.microsoft.com/en-us/azure/aks/uptime-sla for more info)"
   type        = string
   default     = "Free"
 }
