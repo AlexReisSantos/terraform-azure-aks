@@ -4,7 +4,7 @@ trigger:
   - develop # Generates a beta codename (closer to release)
   - master # Official release
   - hotfix/* # Official release
-  
+
 variables:
   - group: release-note-auth
   - group: terraform-ci
