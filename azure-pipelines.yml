@@ -78,7 +78,7 @@ stages:
           inputs:
             gitHubConnection: 'guifabmello-access-token'
             repositoryName: $(Build.Repository.Name)
-            title: $(Build.BdevopeuildNumber)
+            title: $(Build.BuildNumber)
             action: 'create'
             tagSource: manual
             tag: $(Build.BuildNumber)
