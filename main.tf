@@ -138,8 +138,6 @@
 * ```
 */
 
-/* Comment test */
-
 resource "azurerm_kubernetes_cluster" "k8s" {
 
   depends_on = [
