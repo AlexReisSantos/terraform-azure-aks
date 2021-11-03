@@ -4,7 +4,7 @@ trigger:
   - develop # Generates a beta codename (closer to release)
   - master # Official release
   - hotfix/* # Official release
-  
+
 variables:
   - group: release-note-auth
   - group: terraform-ci
@@ -19,7 +19,7 @@ stages:
 
   - template: stages/bootstrap2.yml@templates
     parameters:
-      versionBase: '1.5.0'
+      versionBase: '1.5.1'
 
   - stage: Build
     jobs:
@@ -76,7 +76,7 @@ stages:
           displayName: PushRelease
           condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
-            gitHubConnection: 'edalferes-access-token'
+            gitHubConnection: 'guifabmello-access-token'
             repositoryName: $(Build.Repository.Name)
             title: $(Build.BuildNumber)
             action: 'create'

@@ -1,6 +1,5 @@
 resource "azuread_application" "sp" {
   display_name               = local.sp_name
-  identifier_uris            = ["http://${local.sp_name}"]
   available_to_other_tenants = false
   oauth2_allow_implicit_flow = false
 }
@@ -27,13 +26,13 @@ resource "azuread_service_principal_password" "sp" {
 
 resource "azurerm_role_assignment" "role_assignment_network" {
   scope                = local.subnet_id
-  role_definition_name = "Contributor"
+  role_definition_name = "Owner"
   principal_id         = azuread_service_principal.sp.id
 }
 
 resource "azurerm_role_assignment" "role_assignment_aks" {
   scope                = azurerm_kubernetes_cluster.k8s.id
-  role_definition_name = "Contributor"
+  role_definition_name = "Owner"
   principal_id         = azuread_service_principal.sp.id
 }
 
