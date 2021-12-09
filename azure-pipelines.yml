@@ -17,9 +17,7 @@ resources:
 
 stages:
 
-  - template: stages/bootstrap.yml@templates
-    parameters:
-      versionBase: '1.5.1'
+  - template: stages/bootstrap3.yml@templates
 
   - stage: Build
     jobs:
