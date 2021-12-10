@@ -1,6 +1,6 @@
 2021-12-10 1.5.2
 ----------------
-* KMAMS-966696: Changed repository and incremented ci_cd with full release proccess
+* KMAMS-966696: Changed repository and incremented ci_cd with full release proccess. Bootstrap version upgraded from 2 to 3.
 
 2021-10-21 1.5.1
 ----------------
