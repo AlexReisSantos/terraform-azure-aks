@@ -17,9 +17,7 @@ resources:
 
 stages:
 
-  - template: stages/bootstrap2.yml@templates
-    parameters:
-      versionBase: '1.5.1'
+  - template: stages/bootstrap3.yml@templates
 
   - stage: Build
     jobs:
@@ -29,61 +27,37 @@ stages:
 
         steps:
 
-        #- task: Bash@3
-        #  displayName: "Install terraform 0.12.29"
-        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-        #  inputs:
-        #    targetType: inline
-        #    script: |
-        #      wget https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_linux_amd64.zip
-        #      unzip terraform_0.12.29_linux_amd64.zip 
-        #      sudo cp terraform /usr/local/bin
-        #      terraform version
-        #      mkdir -pv $HOME/.kube || true
-        #      echo $HOME
+        - task: DownloadSecureFile@1
+          name: sshKey
+          displayName: 'Download SSH Key'
+          inputs:
+            secureFile: 'kantarware_rsa'
 
-        #- task: GoTool@0
-        #  displayName: 'Go install'
-        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-        #  inputs:
-        #    version: '1.14.4'
+        - task: Bash@3
+          displayName: PushToGithub
+          inputs:
+            targetType: inline
+            workingDirectory: ./
+            script: |
+              export GIT_TERMINAL_PROMPT=1
+              mkdir ~/.ssh && mv $(sshKey.secureFilePath) ~/.ssh/id_rsa
+              chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa
+              ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+              git remote add github git@github.com:guifabmello/terraform-azure-aks.git
+              BRANCH_NAME=$(echo $(Build.SourceBranch) | cut -d/ -f3-)
+              git checkout ${BRANCH_NAME} 
+              git push -u github ${BRANCH_NAME}
 
-        #- task: Go@0
-        #  displayName: Go get
-        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-        #  inputs:
-        #    workingDirectory: 'test'
-        #    command: 'get'
-        #    arguments: '-d -v'
-
-        #- task: Bash@3
-        #  displayName: 'Go test'
-        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-        #  inputs:
-        #    workingDirectory: 'test'
-        #    targetType: inline
-        #    script: |
-        #      ./gotestsum --format standard-verbose --junitfile report.xml -- -timeout 0
-    
-        #- task: PublishTestResults@2
-        #  displayName: 'Publish result test'
-        #  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-        #  inputs:
-        #    testResultsFormat: 'JUnit'
-        #    testResultsFiles: '**/report.xml'
-
-        - task: GitHubRelease@0
+        - task: GitHubRelease@1
           displayName: PushRelease
-          condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
           inputs:
             gitHubConnection: 'guifabmello-access-token'
-            repositoryName: $(Build.Repository.Name)
+            repositoryName: 'guifabmello/terraform-azure-aks'
             title: $(Build.BuildNumber)
             action: 'create'
-            tagSource: manual
+            tagSource: 'userSpecifiedTag'
             tag: $(Build.BuildNumber)
             addChangeLog: true
             assets: |
               $(Build.ArtifactStagingDirectory)/README.md
               $(Build.ArtifactStagingDirectory)/CHANGELOG.md
-                  
