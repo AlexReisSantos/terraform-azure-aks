@@ -26,13 +26,13 @@ resource "azuread_service_principal_password" "sp" {
 
 resource "azurerm_role_assignment" "role_assignment_network" {
   scope                = local.subnet_id
-  role_definition_name = "Owner"
+  role_definition_name = "Contributor"
   principal_id         = azuread_service_principal.sp.id
 }
 
 resource "azurerm_role_assignment" "role_assignment_aks" {
   scope                = azurerm_kubernetes_cluster.k8s.id
-  role_definition_name = "Owner"
+  role_definition_name = "Contributor"
   principal_id         = azuread_service_principal.sp.id
 }
 
