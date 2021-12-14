@@ -54,6 +54,8 @@ module "aks" {
   storage_account_name      = mystorageaccountaks
 
   tags = var.tags
+  
+  sku_tier = var.sku_tier
 }
 
 ```
@@ -128,6 +130,8 @@ module "aks" {
   }
 
   tags = var.tags
+
+  sku_tier = var.sku_tier
 }
 
 ```
@@ -161,6 +165,7 @@ module "aks" {
 | storage\_account\_replication\_type | (Required) Defines the type of replication to use for this storage account. Valid options are LRS, GRS, RAGRS and ZRS. | `string` | `"LRS"` | no |
 | storage\_account\_tier | (Required) Defines the Tier to use for this storage account. Valid options are Standard and Premium. For FileStorage accounts only Premium is valid. Changing this forces a new resource to be created. | `string` | `"Premium"` | no |
 | tags | (Optional) A mapping of tags to assign to the resource. | `map(string)` | n/a | yes |
+| sku_tier | (Optional) Defines the SLA plan for the availability of system. Valid options are Free, Paid. | `string` | `"Free"` | no |
 | vm\_size | (Required) The size of the Virtual Machine, such as Standard\_DS2\_v2. | `string` | `"Standard_DS2_v2"` | no |
 
 ## Outputs
