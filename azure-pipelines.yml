@@ -51,8 +51,8 @@ stages:
         - task: GitHubRelease@1
           displayName: PushRelease
           inputs:
-            gitHubConnection: 'guifabmello-access-token'
-            repositoryName: 'guifabmello/terraform-azure-aks'
+            gitHubConnection: 'githubkantarmedia-access-token'
+            repositoryName: 'AlexReisSantos/terraform-azure-aks'
             title: $(Build.BuildNumber)
             action: 'create'
             tagSource: 'userSpecifiedTag'
